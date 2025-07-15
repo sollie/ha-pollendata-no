@@ -2,4 +2,6 @@ updates:
 - directory: /
   open-pull-requests-limit: 10
   package-ecosystem: github-actions
+  schedule:
+    interval: weekly
 version: 2
