@@ -1,7 +1,6 @@
 # Norwegian Pollen Data Integration for Home Assistant
 
 [![GitHub Release][releases-shield]][releases]
-[![GitHub Activity][commits-shield]][commits]
 [![License][license-shield]](LICENSE)
 [![hacs][hacsbadge]][hacs]
 
@@ -217,14 +216,14 @@ This integration requires a running [pollendata](https://github.com/sollie/polle
 
 ### API Endpoints:
 - `/regions` - Available Norwegian regions
-- `/pollen/{region}` - Pollen data for Norwegian region  
+- `/pollen/{region}` - Pollen data for Norwegian region
 - `/forecast/{region}` - Forecast text for Norwegian region
 - `/combined/{region}` - Combined data and forecast
 
 ### Available Norwegian Regions:
 Based on [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel):
 - **Østlandet med Oslo** - Eastern Norway with Oslo
-- **Sørlandet** - Southern Norway  
+- **Sørlandet** - Southern Norway
 - **Rogaland** - Rogaland county
 - **Hordaland** - Hordaland county
 - **Sogn og Fjordane** - Sogn og Fjordane county
