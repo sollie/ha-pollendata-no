@@ -48,14 +48,14 @@ docker run -p 8080:8080 sollie/pollendata:latest
 
 ### Method 1: HACS (Recommended)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=sollie&repository=pollendata-no&category=integration)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=sollie&repository=ha-pollendata-no&category=integration)
 
 1. Ensure you have [HACS](https://hacs.xyz/) installed
 2. Add this repository as a custom repository in HACS:
    - Go to HACS > Integrations
    - Click the three dots in the top right corner
    - Select "Custom repositories"
-   - Add `https://github.com/sollie/pollendata-no` as an Integration
+   - Add `https://github.com/sollie/ha-pollendata-no` as an Integration
 3. Search for "Pollen Data (NO)" in HACS and install it
 4. Restart Home Assistant
 5. Go to Configuration > Integrations and add the "Pollen Data (NO)" integration
@@ -72,7 +72,7 @@ docker run -p 8080:8080 sollie/pollendata:latest
 This Home Assistant integration is separate from the backend service:
 
 - **Backend Service**: [sollie/pollendata](https://github.com/sollie/pollendata) - Go service that fetches data
-- **HA Integration**: [sollie/pollendata-no](https://github.com/sollie/pollendata-no) - This Python integration for Home Assistant
+- **HA Integration**: [sollie/ha-pollendata-no](https://github.com/sollie/ha-pollendata-no) - This Python integration for Home Assistant
 
 ## Configuration
 
@@ -291,10 +291,10 @@ MIT License - see LICENSE file for details.
 
 ---
 
-[commits-shield]: https://img.shields.io/github/commit-activity/y/sollie/pollendata-no.svg?style=for-the-badge
-[commits]: https://github.com/sollie/pollendata-no/commits/main
+[commits-shield]: https://img.shields.io/github/commit-activity/y/sollie/ha-pollendata-no.svg?style=for-the-badge
+[commits]: https://github.com/sollie/ha-pollendata-no/commits/main
 [hacs]: https://github.com/hacs/integration
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
-[license-shield]: https://img.shields.io/github/license/sollie/pollendata-no.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/sollie/pollendata-no.svg?style=for-the-badge
-[releases]: https://github.com/sollie/pollendata-no/releases
+[license-shield]: https://img.shields.io/github/license/sollie/ha-pollendata-no.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/sollie/ha-pollendata-no.svg?style=for-the-badge
+[releases]: https://github.com/sollie/ha-pollendata-no/releases
