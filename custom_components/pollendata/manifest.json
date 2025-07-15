@@ -1,0 +1,12 @@
+{
+  "domain": "pollendata",
+  "name": "Pollen Data",
+  "codeowners": ["@kia9342"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/sollie/pollendata",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "requirements": ["aiohttp>=3.8.0"],
+  "version": "1.0.0"
+}

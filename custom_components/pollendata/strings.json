@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Pollen Data Setup",
+        "description": "Set up the Pollen Data integration",
+        "data": {
+          "hostname": "Hostname (with port if needed)"
+        }
+      },
+      "region": {
+        "title": "Select Region",
+        "description": "Choose the region for pollen data",
+        "data": {
+          "region": "Region"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the Pollen Data service",
+      "invalid_host": "Invalid hostname or no regions available",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "Service is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Pollen Data Options",
+        "description": "Configure optional settings for the Pollen Data integration",
+        "data": {
+          "pollen_types": "Specific pollen types to monitor (leave empty for all active types)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "pollen_birch": {
+        "name": "Birch Pollen"
+      },
+      "pollen_grass": {
+        "name": "Grass Pollen"
+      },
+      "pollen_mugwort": {
+        "name": "Mugwort Pollen"
+      },
+      "pollen_alder": {
+        "name": "Alder Pollen"
+      },
+      "pollen_hazel": {
+        "name": "Hazel Pollen"
+      },
+      "pollen_oak": {
+        "name": "Oak Pollen"
+      },
+      "pollen_pine": {
+        "name": "Pine Pollen"
+      },
+      "pollen_poplar": {
+        "name": "Poplar Pollen"
+      },
+      "pollen_willow": {
+        "name": "Willow Pollen"
+      },
+      "pollen_forecast": {
+        "name": "Pollen Forecast"
+      }
+    }
+  }
+}
