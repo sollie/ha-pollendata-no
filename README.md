@@ -17,12 +17,24 @@ You need a running instance of the **[pollendata service](https://github.com/sol
 
 - Fetches pollen data from Norwegian sources ([www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel))
 - Provides REST APIs for Norwegian regions
-- Runs as a local service or container
+- Can run locally, on a remote server, or use a public instance
 
-**Quick start with Docker:**
+### Running the Service
+
+**Option 1: Local Docker (Recommended for testing):**
 ```bash
 docker run -p 8080:8080 sollie/pollendata:latest
 ```
+
+**Option 2: Private server hosting:**
+- Host the service on your own private server/network
+- Use an existing public instance hosted by others
+- Configure hostname to point to the private/public service
+
+**Option 3: Cloud deployment:**
+- Deploy to cloud platforms (AWS, Google Cloud, etc.)
+- Use container orchestration (Kubernetes, Docker Swarm)
+- Configure with appropriate security and access controls
 
 **GitHub repository**: [sollie/pollendata](https://github.com/sollie/pollendata)
 
@@ -81,9 +93,15 @@ This Home Assistant integration is separate from the backend service:
 1. Go to **Configuration** > **Integrations**
 2. Click the **+ Add Integration** button
 3. Search for "Pollen Data (NO)"
-4. Enter your pollendata service hostname (e.g., `localhost:8080`)
+4. Enter your pollendata service hostname (examples below)
 5. Select your region from the available options
 6. Click **Submit**
+
+### Hostname Examples:
+- **Local Docker**: `localhost:8080`
+- **Private server**: `192.168.1.100:8080` or `my-home-server.local:8080`
+- **Public instance**: `pollen-api.someservice.com`
+- **Cloud deployment**: `my-pollen-service.herokuapp.com`
 
 ### Options Configuration
 
@@ -195,7 +213,7 @@ This integration requires a running [pollendata](https://github.com/sollie/polle
 
 - **Fetches Norwegian pollen data** from [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel)
 - **Provides REST APIs** for Norwegian regions only
-- **Runs locally** or in a container accessible to Home Assistant
+- **Can be hosted anywhere** - locally, on a remote server, or using a public instance accessible to Home Assistant
 
 ### API Endpoints:
 - `/regions` - Available Norwegian regions
@@ -226,8 +244,9 @@ Based on [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel):
 
 1. **Cannot connect to service**
    - Verify the hostname and port are correct
-   - Ensure the pollendata service is running
-   - Check firewall settings
+   - Ensure the pollendata service is running and accessible
+   - Check firewall settings (both local and remote if using public hosting)
+   - Test connectivity: `curl http://your-hostname/regions`
 
 2. **No sensors created**
    - Verify the Norwegian region has active pollen data
@@ -242,6 +261,11 @@ Based on [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel):
 4. **Region not available**
    - Check that you're using a valid Norwegian region name
    - Verify the pollendata service is fetching current data from NAAF
+
+5. **Public instance connection issues**
+   - Ensure the public instance supports HTTPS if Home Assistant requires it
+   - Check that the public instance has CORS configured properly
+   - Verify the public instance is running the correct version of pollendata service
 
 ### Debug Logging
 
