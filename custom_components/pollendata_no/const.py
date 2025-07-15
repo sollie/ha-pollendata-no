@@ -1,6 +1,6 @@
 """Constants for the Pollen Data integration."""
 
-DOMAIN = "pollendata"
+DOMAIN = "pollendata_no"
 
 # Configuration keys
 CONF_HOSTNAME = "hostname"
@@ -36,33 +36,37 @@ POLLEN_THRESHOLDS = {
     4: "1000+"
 }
 
-# Common pollen types (will be dynamically populated from API)
+# Norwegian pollen types (from NAAF pollenvarsel.naaf.no)
 COMMON_POLLEN_TYPES = [
-    "birch",
-    "grass",
-    "mugwort",
-    "alder",
-    "hazel",
-    "oak",
-    "pine",
-    "poplar",
-    "willow"
+    "or",      # Alder
+    "hassel",  # Hazel
+    "salix",   # Willow
+    "bjork",   # Birch
+    "gress",   # Grass
+    "burot"    # Mugwort
 ]
+
+# Mapping from Norwegian names to English names
+POLLEN_NAME_MAPPING = {
+    "or": "alder",
+    "hassel": "hazel", 
+    "salix": "willow",
+    "bjork": "birch",
+    "gress": "grass",
+    "burot": "mugwort"
+}
 
 # Sensor device classes
 DEVICE_CLASS_POLLEN = "pollen"
 
-# Sensor icons
+# Sensor icons (using Norwegian pollen types)
 POLLEN_ICONS = {
-    "birch": "mdi:tree",
-    "grass": "mdi:grass",
-    "mugwort": "mdi:flower",
-    "alder": "mdi:tree",
-    "hazel": "mdi:tree",
-    "oak": "mdi:tree",
-    "pine": "mdi:pine-tree",
-    "poplar": "mdi:tree",
-    "willow": "mdi:tree",
+    "or": "mdi:tree",           # Alder
+    "hassel": "mdi:tree",       # Hazel
+    "salix": "mdi:tree",        # Willow
+    "bjork": "mdi:tree",        # Birch
+    "gress": "mdi:grass",       # Grass
+    "burot": "mdi:flower",      # Mugwort
     "default": "mdi:flower-pollen"
 }
 

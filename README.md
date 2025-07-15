@@ -1,9 +1,40 @@
-# Pollen Data Integration for Home Assistant
+# Norwegian Pollen Data Integration for Home Assistant
 
-A Home Assistant custom integration that fetches pollen data from a [pollendata](https://github.com/sollie/pollendata) service and displays it in a beautiful custom card.
+[![GitHub Release][releases-shield]][releases]
+[![GitHub Activity][commits-shield]][commits]
+[![License][license-shield]](LICENSE)
+[![hacs][hacsbadge]][hacs]
+
+A Home Assistant custom integration that fetches **Norwegian pollen data** and displays it in a beautiful custom card.
+
+> **📍 Geographic Coverage**: This integration provides pollen data specifically for **Norway** regions only. The data is sourced from the Norwegian Asthma and Allergy Association (NAAF) via [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel).
+
+## Prerequisites
+
+### Required: Pollendata Service
+
+You need a running instance of the **[pollendata service](https://github.com/sollie/pollendata)** (separate project), which:
+
+- Fetches pollen data from Norwegian sources ([www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel))
+- Provides REST APIs for Norwegian regions
+- Runs as a local service or container
+
+**Quick start with Docker:**
+```bash
+docker run -p 8080:8080 sollie/pollendata:latest
+```
+
+**GitHub repository**: [sollie/pollendata](https://github.com/sollie/pollendata)
+
+### Geographic Limitations
+
+- **✅ Supported**: 12 Norwegian regions as defined by NAAF (see available regions below)
+- **❌ Not supported**: Other countries or regions outside Norway
+- **Data source**: Norwegian Asthma and Allergy Association (NAAF) via [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel)
 
 ## Features
 
+- **Norwegian pollen regions** - Support for all Norwegian regions with pollen monitoring
 - **Configurable hostname and region** - Connect to your pollendata service
 - **Active pollen filtering** - Only shows pollen types with data (level > 0)
 - **Optional pollen type filtering** - Monitor specific pollen types
@@ -15,21 +46,33 @@ A Home Assistant custom integration that fetches pollen data from a [pollendata]
 
 ## Installation
 
-### Method 1: Manual Installation
+### Method 1: HACS (Recommended)
 
-1. Copy the `custom_components/pollendata` folder to your Home Assistant's `custom_components` directory
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=sollie&repository=pollendata-no&category=integration)
+
+1. Ensure you have [HACS](https://hacs.xyz/) installed
+2. Add this repository as a custom repository in HACS:
+   - Go to HACS > Integrations
+   - Click the three dots in the top right corner
+   - Select "Custom repositories"
+   - Add `https://github.com/sollie/pollendata-no` as an Integration
+3. Search for "Pollen Data (NO)" in HACS and install it
+4. Restart Home Assistant
+5. Go to Configuration > Integrations and add the "Pollen Data (NO)" integration
+
+### Method 2: Manual Installation
+
+1. Copy the `custom_components/pollendata_no` folder to your Home Assistant's `custom_components` directory
 2. Copy the `www/pollen-card.js` file to your Home Assistant's `www` directory
 3. Restart Home Assistant
-4. Go to Configuration > Integrations and add the "Pollen Data" integration
+4. Go to Configuration > Integrations and add the "Pollen Data (NO)" integration
 
-### Method 2: HACS (Home Assistant Community Store)
+## Project Structure
 
-*Note: This integration is not yet available in HACS default repositories*
+This Home Assistant integration is separate from the backend service:
 
-1. Add this repository as a custom repository in HACS
-2. Install the integration through HACS
-3. Restart Home Assistant
-4. Go to Configuration > Integrations and add the "Pollen Data" integration
+- **Backend Service**: [sollie/pollendata](https://github.com/sollie/pollendata) - Go service that fetches data
+- **HA Integration**: [sollie/pollendata-no](https://github.com/sollie/pollendata-no) - This Python integration for Home Assistant
 
 ## Configuration
 
@@ -37,7 +80,7 @@ A Home Assistant custom integration that fetches pollen data from a [pollendata]
 
 1. Go to **Configuration** > **Integrations**
 2. Click the **+ Add Integration** button
-3. Search for "Pollen Data"
+3. Search for "Pollen Data (NO)"
 4. Enter your pollendata service hostname (e.g., `localhost:8080`)
 5. Select your region from the available options
 6. Click **Submit**
@@ -47,7 +90,7 @@ A Home Assistant custom integration that fetches pollen data from a [pollendata]
 After setting up the integration, you can configure additional options:
 
 1. Go to **Configuration** > **Integrations**
-2. Find your Pollen Data integration
+2. Find your Pollen Data (NO) integration
 3. Click **Configure**
 4. Select specific pollen types to monitor (optional)
 
@@ -80,7 +123,7 @@ show_thresholds: true
 entities:
   - sensor.pollen_birch
   - sensor.pollen_grass
-  - sensor.pollen_mugwort
+  - sensor.pollen_alder
 forecast_entity: sensor.pollen_forecast
 ```
 
@@ -88,27 +131,37 @@ forecast_entity: sensor.pollen_forecast
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `title` | string | "Pollen Data" | Card title |
+| `title` | string | "Pollen Data (NO)" | Card title |
 | `show_forecast` | boolean | true | Show forecast section |
 | `show_levels` | boolean | true | Show level names (Low, Moderate, etc.) |
 | `show_thresholds` | boolean | true | Show pollen count thresholds |
 | `entities` | list | auto-detect | Specific pollen sensor entities |
 | `forecast_entity` | string | auto-detect | Forecast sensor entity |
 
+## Pollen Types
+
+The integration monitors the following pollen types as available from the Norwegian Asthma and Allergy Association (NAAF):
+
+| English Name | Norwegian Name | Sensor ID |
+|-------------|----------------|-----------|
+| Alder | Or | `sensor.pollen_alder` |
+| Hazel | Hassel | `sensor.pollen_hazel` |
+| Willow | Salix | `sensor.pollen_willow` |
+| Birch | Bjørk | `sensor.pollen_birch` |
+| Grass | Gress | `sensor.pollen_grass` |
+| Mugwort | Burot | `sensor.pollen_mugwort` |
+
+> **Note**: Only pollen types with active data (level > 0) will create sensors in Home Assistant.
+
 ## Sensors
 
 The integration creates the following sensors:
-
-### Pollen Sensors
-- `sensor.pollen_birch` - Birch pollen level
-- `sensor.pollen_grass` - Grass pollen level
-- `sensor.pollen_mugwort` - Mugwort pollen level
-- `sensor.pollen_alder` - Alder pollen level
-- `sensor.pollen_hazel` - Hazel pollen level
-- `sensor.pollen_oak` - Oak pollen level
-- `sensor.pollen_pine` - Pine pollen level
-- `sensor.pollen_poplar` - Poplar pollen level
-- `sensor.pollen_willow` - Willow pollen level
+- `sensor.pollen_alder` - Alder pollen level (Or)
+- `sensor.pollen_hazel` - Hazel pollen level (Hassel)
+- `sensor.pollen_willow` - Willow pollen level (Salix)
+- `sensor.pollen_birch` - Birch pollen level (Bjørk)
+- `sensor.pollen_grass` - Grass pollen level (Gress)
+- `sensor.pollen_mugwort` - Mugwort pollen level (Burot)
 
 ### Forecast Sensor
 - `sensor.pollen_forecast` - Text forecast (if available)
@@ -136,14 +189,36 @@ Each pollen sensor provides these attributes:
 - `region` - Geographic region
 - `last_updated` - Last update timestamp
 
-## Pollendata Service
+## Pollendata Service Requirements
 
-This integration requires a running [pollendata](https://github.com/sollie/pollendata) service that provides:
+This integration requires a running [pollendata](https://github.com/sollie/pollendata) service that:
 
-- `/regions` - Available regions
-- `/pollen/{region}` - Pollen data for region
-- `/forecast/{region}` - Forecast text for region
+- **Fetches Norwegian pollen data** from [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel)
+- **Provides REST APIs** for Norwegian regions only
+- **Runs locally** or in a container accessible to Home Assistant
+
+### API Endpoints:
+- `/regions` - Available Norwegian regions
+- `/pollen/{region}` - Pollen data for Norwegian region  
+- `/forecast/{region}` - Forecast text for Norwegian region
 - `/combined/{region}` - Combined data and forecast
+
+### Available Norwegian Regions:
+Based on [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel):
+- **Østlandet med Oslo** - Eastern Norway with Oslo
+- **Sørlandet** - Southern Norway  
+- **Rogaland** - Rogaland county
+- **Hordaland** - Hordaland county
+- **Sogn og Fjordane** - Sogn og Fjordane county
+- **Møre og Romsdal** - Møre og Romsdal county
+- **Indre Østlandet** - Inner Eastern Norway
+- **Sentrale fjellstrøk i Sør-Norge** - Central mountain areas in Southern Norway
+- **Trøndelag** - Trøndelag county
+- **Nordland** - Nordland county
+- **Troms** - Troms county
+- **Finnmark** - Finnmark county
+
+> **💡 Tip**: You can verify current available regions by visiting [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel) directly.
 
 ## Troubleshooting
 
@@ -155,7 +230,7 @@ This integration requires a running [pollendata](https://github.com/sollie/polle
    - Check firewall settings
 
 2. **No sensors created**
-   - Verify the region has active pollen data
+   - Verify the Norwegian region has active pollen data
    - Check Home Assistant logs for errors
    - Ensure the pollendata service returns valid data
 
@@ -163,6 +238,10 @@ This integration requires a running [pollendata](https://github.com/sollie/polle
    - Verify the card resource is properly added
    - Check browser console for JavaScript errors
    - Ensure the card configuration is correct
+
+4. **Region not available**
+   - Check that you're using a valid Norwegian region name
+   - Verify the pollendata service is fetching current data from NAAF
 
 ### Debug Logging
 
@@ -209,3 +288,13 @@ MIT License - see LICENSE file for details.
 
 - [pollendata](https://github.com/sollie/pollendata) - The backend service for fetching pollen data
 - [Home Assistant](https://www.home-assistant.io/) - Open source home automation platform
+
+---
+
+[commits-shield]: https://img.shields.io/github/commit-activity/y/sollie/pollendata-no.svg?style=for-the-badge
+[commits]: https://github.com/sollie/pollendata-no/commits/main
+[hacs]: https://github.com/hacs/integration
+[hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/sollie/pollendata-no.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/sollie/pollendata-no.svg?style=for-the-badge
+[releases]: https://github.com/sollie/pollendata-no/releases

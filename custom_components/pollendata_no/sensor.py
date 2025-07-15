@@ -15,6 +15,7 @@ from .const import (
     POLLEN_THRESHOLDS,
     POLLEN_ICONS,
     POLLEN_COLORS,
+    POLLEN_NAME_MAPPING,
 )
 from .coordinator import PollenDataUpdateCoordinator
 
@@ -71,8 +72,11 @@ class PollenSensor(CoordinatorEntity, SensorEntity):
         self.pollen_type = pollen_type
         self.region = region
         
+        # Get English display name for the pollen type
+        display_name = POLLEN_NAME_MAPPING.get(pollen_type, pollen_type)
+        
         # Entity configuration
-        self._attr_name = f"Pollen {pollen_type.title()}"
+        self._attr_name = f"Pollen {display_name.title()}"
         self._attr_unique_id = f"{DOMAIN}_{region}_{pollen_type}"
         self._attr_icon = POLLEN_ICONS.get(pollen_type, POLLEN_ICONS["default"])
         self._attr_state_class = SensorStateClass.MEASUREMENT
