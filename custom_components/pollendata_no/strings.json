@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Pollen Data (NO) Setup",
-        "description": "Set up the Norwegian Pollen Data integration",
+        "description": "Set up the Norwegian Pollen Data integration\n\n⚠️ DISCLAIMER: This is an unofficial project and is not affiliated with NAAF (Norges Astma- og Allergiforbund).",
         "data": {
           "hostname": "Hostname (with port if needed)"
         }

@@ -6,6 +6,8 @@
 
 A Home Assistant custom integration that fetches **Norwegian pollen data** and displays it in a beautiful custom card.
 
+> **⚠️ DISCLAIMER**: This is an **unofficial** project and is **not affiliated** with NAAF (Norges Astma- og Allergiforbund / Norwegian Asthma and Allergy Association). This integration independently fetches publicly available data from their website for personal use only.
+
 > **📍 Geographic Coverage**: This integration provides pollen data specifically for **Norway** regions only. The data is sourced from the Norwegian Asthma and Allergy Association (NAAF) via [www.naaf.no/pollenvarsel](https://www.naaf.no/pollenvarsel).
 
 ## Prerequisites
